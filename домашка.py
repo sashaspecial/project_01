@@ -324,6 +324,8 @@ class Matrix:
     def __init__(self, list_of_lists):
         self.matrix = deepcopy(list_of_lists)
 
+"""Задача 4.1"""
+
 # Задача 4.1.
 # Домашнее задание на SQL
 
