@@ -262,7 +262,7 @@ def switch_it_up(number):
   f = {0: "ноль", 1: 'один', 2: 'два', 3: 'три', 4: 'четыре', 5: 'пять',
          6: 'шесть', 7: 'семь', 8: 'восемь', 9: 'девять'}
   if number < 10:
-    return f.get(number)
+    return f.get(0)
 
 """Задача 2.4"""
 
@@ -275,7 +275,7 @@ def switch_it_up(number):
 
 def remove_exclamation_marks(s):
     return s.replace("!", "")
-   
+
 
 
 # Пункт B.
@@ -320,4 +320,61 @@ def remove_last_em(s):
 #   - отображать в таблице/матрице название колонки не обязательно!
 #   - использовать готовые классы numpy.array() и pandas.DataFrame() запрещено!
 #   - проявите фантазию :)
+class Matrix:
+    def __init__(self, list_of_lists):
+        self.matrix = deepcopy(list_of_lists)
 
+# Задача 4.1.
+# Домашнее задание на SQL
+
+# В базе данных teacher создайте таблицу Students
+
+# Структура таблицы: Student_Id - Integer, Student_Name - Text, School_Id - Integer (Primary key????? опечатка????)
+
+# Наполните таблицу следующими данными:
+
+# 201, Иван, 1
+# 202, Петр, 2
+# 203, Анастасия, 3
+# 204, Игорь, 4
+
+# Напишите программу, с помощью которой по ID студента можно получать информацию о школе и студенте.
+# Формат вывода:
+
+# ID Студента:
+# Имя студента:
+# ID школы:
+# Название школы:
+
+# -- CREATE TABLE students (
+# -- Student_ID INTEGER NOT NULL PRIMARY KEY,
+# -- Student_Name TEXT NOT NULL,
+# -- School_ID INTEGER not NULL);
+# -- INSERT into students (Student_ID, Student_Name, School_ID)
+# -- Values 
+# --('201', 'Иван', '1'),
+# --('202', 'Петр', '2'),
+# --('203', 'Анастасия', '3'),
+# --('204', 'Игорь', '4');
+# -- SELECT * FROM students;
+import sqlite3
+def get_connection():
+  connection = sqlite3.connect('teachers.db')
+  return connection
+def close_connection(connection):
+  if connection:
+    connection.close()
+def get_detail(student_id):
+  try:
+    connection = get_connection()
+    cursor = connection.cursor()
+    sqlquare = "SELECT * FROM students WHERE Student_Id = ?"
+    cursor.execute(sqlquare,(student_id,))
+    records = cursor.fetchall()
+    for row in records:
+      print("ID студента: ", row[0])
+      print("Имя студента: ", row[1])
+      print("ID школы: ", row[2])
+    close_connection(connection)
+  except (Exception, sqlite3.Error) as error:
+    print('ошибка в получении данных', error)
