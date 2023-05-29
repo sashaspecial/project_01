@@ -359,6 +359,11 @@ class Matrix:
 # --('203', 'Анастасия', '3'),
 # --('204', 'Игорь', '4');
 # -- SELECT * FROM students;
+#-- SELECT * FROM School;
+#-- SELECT School.School_Name, students.Student_ID, students.Student_Name, students.School_ID
+#-- FROM students
+#-- LEFT JOIN School on students.school_ID = School.school_id;
+#-- SELECT * FROM students;
 import sqlite3
 def get_connection():
   connection = sqlite3.connect('teachers.db')
@@ -380,3 +385,4 @@ def get_detail(student_id):
     close_connection(connection)
   except (Exception, sqlite3.Error) as error:
     print('ошибка в получении данных', error)
+get_detail(201)
