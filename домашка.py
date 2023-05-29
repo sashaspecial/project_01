@@ -385,4 +385,3 @@ def get_detail(student_id):
     close_connection(connection)
   except (Exception, sqlite3.Error) as error:
     print('ошибка в получении данных', error)
-get_detail(201)
