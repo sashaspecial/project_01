@@ -365,23 +365,21 @@ class Matrix:
 #-- LEFT JOIN School on students.school_ID = School.school_id;
 #-- SELECT * FROM students;
 import sqlite3
-def get_connection():
-  connection = sqlite3.connect('teachers.db')
-  return connection
-def close_connection(connection):
-  if connection:
-    connection.close()
+
 def get_detail(student_id):
   try:
-    connection = get_connection()
-    cursor = connection.cursor()
-    sqlquare = "SELECT * FROM students WHERE Student_Id = ?"
+    con = sqlite3.connect('teachers.db')
+    cursor = con.cursor()
+    sqlquare = "SELECT * FROM School JOIN students ON School.School_Id = students.School_ID WHERE students.Student_ID = ?"
     cursor.execute(sqlquare,(student_id,))
     records = cursor.fetchall()
+  
     for row in records:
-      print("ID студента: ", row[0])
-      print("Имя студента: ", row[1])
-      print("ID школы: ", row[2])
-    close_connection(connection)
+      print("ID студента: ", row[3])
+      print("Имя студента: ", row[4])
+      print("ID школы: ", row[0])
+      print("Название школы: ", row[1])
+  
   except (Exception, sqlite3.Error) as error:
     print('ошибка в получении данных', error)
+
